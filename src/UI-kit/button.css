@@ -1,23 +1,27 @@
-label {
+.btn-container {
+    position: relative;
+    width: 400px;
+}
+
+.btn-container label {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 70px;
-    width: 400px;
-    height: 40px;
     border: 1px solid #E5E5E5;
     background-color: transparent;
-    padding-left: 10px;
+    padding: 10px;
     font-family: 'Proxima Nova';
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
     line-height: 160%;
     color: #82B284;
+    cursor: pointer;
 }
 
-label:hover {
+.btn-container label:hover {
     border: 1px solid #CDCDCD;
     font-family: 'Proxima Nova';
     font-style: normal;
@@ -30,7 +34,7 @@ label:hover {
     color: #98C88C;
 }
 
-label:active {
+.btn-container label:active {
     border: 1px solid #CDCDCD;
     font-family: 'Proxima Nova';
     font-style: normal;
