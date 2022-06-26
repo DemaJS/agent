@@ -1,25 +1,36 @@
-import { useState } from "react";
-import { Popup } from "../../Components/Modal/popup";
-import { CloseIcon } from "../../svg/Close";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrganization } from "../../BLL/Actions/organization-actions";
+import { AppDispatch, RootState } from "../../BLL/configurate-store";
 import { Button } from "../../UI-kit/Button";
-import { Input } from "../../UI-kit/Input";
-import { Contacts } from "./contacts";
+import { convertDate } from "../../Utils/convert-date";
 import { Header } from "./header";
-import { MainInfo } from "./main-info";
+import { ImgComponent } from "./img-component";
 import "./main.css";
+import { ContactsPopup } from "./Modals/contacts-popup";
+import { MainInfoPopup } from "./Modals/main-info-popup";
 
 export const Content = () => {
-  const [main, setMain] = useState({
-    fullName: "aaa",
-    contract: "",
-    form: "",
-    type: "",
-  });
-  const [contacts, setContacts] = useState({
-    fullName: "",
-    phone: "",
-    mail: "",
-  });
+  const dispatch = useDispatch<AppDispatch>();
+
+  const loadInfo = async () => {
+    await dispatch(getOrganization());
+  };
+
+  useEffect(() => {
+    loadInfo();
+  }, []);
+
+  const organization = useSelector(
+    (store: RootState) => store.organizations.organization.data
+  );
+  const isLoading = useSelector(
+    (store: RootState) => store.organizations.organization.loading
+  );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="content">
@@ -28,100 +39,56 @@ export const Content = () => {
         <div className="content__info-block">
           <div className="content__title">
             ОБЩАЯ ИНФОРМАЦИЯ
-            <Popup title="Редактирование" action="СОХРАНИТЬ">
-              <Input
-                placeholder="Полное название"
-                value={main.fullName}
-                onChangeHandler={(e) => {
-                  setMain((prev) => ({
-                    ...prev,
-                    fullName: e,
-                  }));
-                }}
-              />
-              <Input
-                placeholder="Договор"
-                value={main.contract}
-                onChangeHandler={(e) => {
-                  setMain((prev) => ({
-                    ...prev,
-                    contract: e,
-                  }));
-                }}
-              />
-              <Input
-                placeholder="Форма"
-                value={main.form}
-                onChangeHandler={(e) => {
-                  setMain((prev) => ({
-                    ...prev,
-                    form: e,
-                  }));
-                }}
-              />
-              <Input
-                placeholder="Тип"
-                value={main.type}
-                onChangeHandler={(e) => {
-                  setMain((prev) => ({
-                    ...prev,
-                    type: e,
-                  }));
-                }}
-              />
-            </Popup>
+            <MainInfoPopup
+              fullName={organization.name}
+              contract={organization.contract?.no}
+              contractDate={convertDate(organization.contract?.issue_date)}
+              form={organization.businessEntity}
+            />
           </div>
-          <MainInfo />
+          <div className="content__description">
+            <ul>
+              <li>Полное название:</li>
+              <li>Договор:</li>
+              <li>Форма:</li>
+              <li>Тип:</li>
+            </ul>
+            <ul className="descripton-data">
+              <li>{organization.name}</li>
+              <li>
+                {organization.contract?.no} от{" "}
+                {convertDate(organization.contract?.issue_date)}
+              </li>
+              <li>{organization.businessEntity}</li>
+              <li>{organization.type?.join(", ").toUpperCase()}</li>
+            </ul>
+          </div>
         </div>
         <div className="content__info-block">
           <div className="content__title">
             КОНТАКТНЫЕ ДАННЫЕ
-            <Popup title="Редактирование" action="СОХРАНИТЬ">
-              <Input
-                placeholder="ФИО"
-                value={contacts.fullName}
-                onChangeHandler={(e) => {
-                  setContacts((prev) => ({
-                    ...prev,
-                    fullName: e,
-                  }));
-                }}
-              />
-              <Input
-                placeholder="Телефон"
-                value={contacts.phone}
-                onChangeHandler={(e) => {
-                  setContacts((prev) => ({
-                    ...prev,
-                    phone: e,
-                  }));
-                }}
-              />
-              <Input
-                placeholder="Эл. почта"
-                value={contacts.mail}
-                onChangeHandler={(e) => {
-                  setContacts((prev) => ({
-                    ...prev,
-                    mail: e,
-                  }));
-                }}
-              />
-            </Popup>
+            <ContactsPopup />
           </div>
-          <Contacts />
+          <div className="content__description">
+            <ul>
+              <li>ФИО:</li>
+              <li>Телефон:</li>
+              <li>Эл. почта:</li>
+            </ul>
+            <ul className="descripton-data">
+              <li>Григорьев Сергей Петрович</li>
+              <li>+7 (916) 216-55-88</li>
+              <li>grigoriev@funeral.com</li>
+            </ul>
+          </div>
         </div>
         <div className="content__info-block">
           <div className="content__title">ПРИЛОЖЕННЫЕ ФОТО</div>
           <div className="img-block">
-            <div className="image">
-              <img alt="photos" />
-              <div className="close-icon">
-                <CloseIcon />
-              </div>
-              <span>Надгробный камень.jpg</span>
-              <span>11 июня 2018</span>
-            </div>
+            {organization.photos &&
+              organization.photos.map((el) => {
+                return <ImgComponent src={el.thumbpath} name={el.name} />;
+              })}
             <Button />
           </div>
         </div>

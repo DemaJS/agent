@@ -11,23 +11,23 @@ export const ExitIcon = () => {
         <path
           d="M12.9569 5.55176L17.4052 10.0001L12.9569 14.4483"
           stroke="#F7F7F7"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
         />
         <path
           d="M6.23401 10H16.7537"
           stroke="#F7F7F7"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
         />
         <path
           d="M11.801 18.125H3.125V1.875H11.801"
           stroke="#F7F7F7"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>

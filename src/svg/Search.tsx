@@ -13,7 +13,7 @@ export const SearchIcon = () => {
           cy="8.60809"
           r="6.5"
           stroke="#F7F7F7"
-          stroke-width="2"
+          strokeWidth="2"
         />
         <path
           d="M4.6084 8.60809C4.6084 6.39895 6.39926 4.60809 8.6084 4.60809"

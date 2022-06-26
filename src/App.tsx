@@ -1,20 +1,26 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { login } from "./BLL/Actions/auth";
-import { getOrganization } from "./BLL/Actions/organization";
-import { AppDispatch } from "./BLL/configurate-store";
+import { AppDispatch, RootState } from "./BLL/configurate-store";
 import { Footer } from "./Layout/Footer/footer";
 import { Content } from "./Layout/Main/content";
 import { Sidebar } from "./Layout/Sidebar/sidebar";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useSelector((store: RootState) => store.auth.isLoading);
+  const loadInfo = async () => {
+    await dispatch(login());
+  };
 
   useEffect(() => {
-    dispatch(login());
-    dispatch(getOrganization());
+    loadInfo();
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="wrapper">
