@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrganization } from "../../BLL/Actions/organization-actions";
+import {
+  deleteImg,
+  getOrganization,
+} from "../../BLL/Actions/organization-actions";
 import { AppDispatch, RootState } from "../../BLL/configurate-store";
+import { deleteImage } from "../../BLL/Reducers/organizations";
 import { Button } from "../../UI-kit/Button";
 import { convertDate } from "../../Utils/convert-date";
 import { Header } from "./header";
@@ -15,6 +19,11 @@ export const Content = () => {
 
   const loadInfo = async () => {
     await dispatch(getOrganization());
+  };
+
+  const deleteImgHandler = (name: string) => {
+    dispatch(deleteImg(name));
+    dispatch(deleteImage(name));
   };
 
   useEffect(() => {
@@ -54,13 +63,25 @@ export const Content = () => {
               <li>Тип:</li>
             </ul>
             <ul className="descripton-data">
-              <li>{organization.name}</li>
               <li>
-                {organization.contract?.no} от{" "}
-                {convertDate(organization.contract?.issue_date)}
+                {organization.name ? organization.name : "Данные удалены"}
               </li>
-              <li>{organization.businessEntity}</li>
-              <li>{organization.type?.join(", ").toUpperCase()}</li>
+              <li>
+                {organization.contract?.no
+                  ? `${organization.contract?.no} от
+                  ${convertDate(organization.contract?.issue_date)}`
+                  : "Данные удалены"}
+              </li>
+              <li>
+                {organization.businessEntity
+                  ? organization.businessEntity
+                  : "Данные удалены"}
+              </li>
+              <li>
+                {organization.type
+                  ? organization.type?.join(", ").toUpperCase()
+                  : "Данные удалены"}
+              </li>
             </ul>
           </div>
         </div>
@@ -85,10 +106,19 @@ export const Content = () => {
         <div className="content__info-block">
           <div className="content__title">ПРИЛОЖЕННЫЕ ФОТО</div>
           <div className="img-block">
-            {organization.photos &&
-              organization.photos.map((el) => {
-                return <ImgComponent src={el.thumbpath} name={el.name} />;
-              })}
+            {organization.photos?.length === 0 ? (
+              <div style={{ marginBottom: "20px" }}>Фото не загружены</div>
+            ) : (
+              organization.photos?.map((el) => {
+                return (
+                  <ImgComponent
+                    src={el.thumbpath}
+                    name={el.name}
+                    callback={deleteImgHandler}
+                  />
+                );
+              })
+            )}
             <Button />
           </div>
         </div>

@@ -25,5 +25,6 @@ export interface IOrganization {
         loading: boolean
         data: ResponseType
         error: AxiosError | null
-    }
+    },
+    contacts: {}
 }

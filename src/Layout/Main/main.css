@@ -3,6 +3,7 @@
     background-color: #fff;
     color: #444;
     box-shadow: -1px 0px 10px 1px #aaaaaa;
+    overflow: auto;
 }
 
 .content__container {

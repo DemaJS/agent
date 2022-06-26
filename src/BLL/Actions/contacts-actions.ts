@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import ContactsService from "../../Services/contacts";
+import ContactsService from "../../Services/contacts-service";
 
 
 

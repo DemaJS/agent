@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { login } from "./BLL/Actions/auth";
+import { login } from "./BLL/Actions/auth-actions";
 import { AppDispatch, RootState } from "./BLL/configurate-store";
 import { Footer } from "./Layout/Footer/footer";
 import { Content } from "./Layout/Main/content";

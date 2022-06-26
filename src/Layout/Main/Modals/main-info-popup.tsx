@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { patchOrganization } from "../../../BLL/Actions/organization-actions";
+import { AppDispatch } from "../../../BLL/configurate-store";
 import { Popup } from "../../../Components/Modal/popup";
 import { Input } from "../../../UI-kit/Input";
 
@@ -15,6 +18,7 @@ export const MainInfoPopup = ({
   contractDate,
   form,
 }: PropsType) => {
+  const dispatch = useDispatch<AppDispatch>();
   const [main, setMain] = useState<PropsType>({
     fullName,
     contract,
@@ -22,8 +26,16 @@ export const MainInfoPopup = ({
     form,
   });
 
+  const saveForm = () => {
+    const payload = {
+      name: main.fullName,
+      businessEntity: main.form,
+    };
+    dispatch(patchOrganization(payload));
+  };
+
   return (
-    <Popup title="Редактирование" action="СОХРАНИТЬ">
+    <Popup title="Редактирование" action="СОХРАНИТЬ" callback={saveForm}>
       <Input
         placeholder="Полное название"
         value={main.fullName}
@@ -34,7 +46,7 @@ export const MainInfoPopup = ({
           }));
         }}
       />
-      <Input
+      {/* <Input
         placeholder="Договор"
         value={main.contract}
         onChangeHandler={(e) => {
@@ -53,7 +65,7 @@ export const MainInfoPopup = ({
             contract: e,
           }));
         }}
-      />
+      /> */}
       <Input
         placeholder="Форма"
         value={main.form}

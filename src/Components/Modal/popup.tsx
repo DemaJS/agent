@@ -1,14 +1,23 @@
 import { useState } from "react";
 import popupStyles from "./popup.module.css";
 import { EditIcon } from "../../svg/Edit";
+import { TrashIcon } from "../../svg/Trash";
 
 type PropsType = {
   title: string;
   children?: React.ReactNode;
   action?: string;
+  callback?: () => void;
+  type?: "delete" | "edit";
 };
 
-export const Popup = ({ title, children, action }: PropsType) => {
+export const Popup = ({
+  title,
+  children,
+  action,
+  callback,
+  type,
+}: PropsType) => {
   const [show, setShow] = useState(false);
 
   const closeHandler = () => {
@@ -18,7 +27,7 @@ export const Popup = ({ title, children, action }: PropsType) => {
   if (!show) {
     return (
       <div onClick={() => setShow(true)} style={{ cursor: "pointer" }}>
-        <EditIcon />
+        {type === "delete" ? <TrashIcon /> : <EditIcon />}
       </div>
     );
   }
@@ -34,7 +43,7 @@ export const Popup = ({ title, children, action }: PropsType) => {
         <h2>{title}</h2>
         <div className={popupStyles.content}>{children}</div>
         <div className={popupStyles.actions}>
-          <button>{action}</button>
+          <button onClick={callback}>{action}</button>
           <button onClick={closeHandler}>ОТМЕНА</button>
         </div>
       </div>
