@@ -57,6 +57,9 @@
 
 .img-block {
     margin-top: 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
 }
 
 .image {

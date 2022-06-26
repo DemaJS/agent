@@ -1,3 +1,8 @@
+.upload-wrapper {
+    display: flex;
+    gap: 24px;
+}
+
 .btn-container {
     position: relative;
     width: 400px;
@@ -20,6 +25,7 @@
     color: #82B284;
     cursor: pointer;
 }
+
 
 .btn-container label:hover {
     border: 1px solid #CDCDCD;

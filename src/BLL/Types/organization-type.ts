@@ -1,7 +1,7 @@
 import { AxiosError } from "axios"
 
 
-type PhotosType = {
+export type PhotosType = {
     name: string
     filepath: string
     thumbpath: string

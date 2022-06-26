@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../../BLL/configurate-store";
 import { deleteImage } from "../../BLL/Reducers/organizations";
 import { Button } from "../../UI-kit/Button";
 import { convertDate } from "../../Utils/convert-date";
+import UploadAndDisplayImage from "../../Utils/upload";
 import { Header } from "./header";
 import { ImgComponent } from "./img-component";
 import "./main.css";
@@ -119,8 +120,8 @@ export const Content = () => {
                 );
               })
             )}
-            <Button />
           </div>
+          <Button />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { extraReducer } from "../../Utils/extra-reducer";
 import { deleteOrganization, getOrganization, patchOrganization } from "../Actions/organization-actions";
-import { IOrganization, ResponseType } from "../Types/organization-type";
+import { IOrganization, PhotosType, ResponseType } from "../Types/organization-type";
 
 export const initialState: IOrganization = {
     organization: {
@@ -21,6 +21,9 @@ const organizationReducerExtra = createSlice({
             const photos = state.organization.data.photos.filter(el => el.name !== action.payload)
             state.organization.data = { ...state.organization.data, photos }
         },
+        uploadPhoto(state, action: PayloadAction<PhotosType>) {
+            state.organization.data.photos.push(action.payload)
+        }
     },
     extraReducers: {
         ...extraReducer(getOrganization, "organization", {}),
@@ -31,5 +34,5 @@ const organizationReducerExtra = createSlice({
 });
 
 export const organizationReducer = organizationReducerExtra.reducer;
-export const { deleteImage } = organizationReducerExtra.actions;
+export const { deleteImage, uploadPhoto } = organizationReducerExtra.actions;
 
