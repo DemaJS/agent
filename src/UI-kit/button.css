@@ -3,6 +3,17 @@
     gap: 24px;
 }
 
+.actions-upload {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: end;
+}
+
+.actions-upload div {
+    cursor: pointer;
+}
+
 .btn-container {
     position: relative;
     width: 400px;

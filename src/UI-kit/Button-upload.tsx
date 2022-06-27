@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { uploadPhoto } from "../BLL/Reducers/organizations";
 import OrganizationService from "../Services/organization-service";
 import { AddIcon } from "../svg/Add";
+import { TrashIcon } from "../svg/Trash";
+import { UploadIcon } from "../svg/Upload";
 import "./button.css";
 
-export const Button = () => {
+export const UploadButton = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const dispatch = useDispatch();
 
@@ -25,7 +27,13 @@ export const Button = () => {
   return (
     <div className="upload-wrapper">
       <div className="btn-container">
-        <input type="file" id="upload" hidden onChange={handleChange} />
+        <input
+          type="file"
+          id="upload"
+          multiple
+          hidden
+          onChange={handleChange}
+        />
         <label htmlFor="upload">
           <AddIcon />
           ДОБАВИТЬ ИЗОБРАЖЕНИЕ
@@ -39,8 +47,14 @@ export const Button = () => {
             src={URL.createObjectURL(selectedImage)}
           />
           <br />
-          <button onClick={uploadImg}>Сохранить</button>
-          <button onClick={() => setSelectedImage(null)}>Удалить</button>
+          <div className="actions-upload">
+            <div onClick={uploadImg}>
+              <UploadIcon />
+            </div>
+            <div onClick={() => setSelectedImage(null)}>
+              <TrashIcon />
+            </div>
+          </div>
         </div>
       )}
     </div>
