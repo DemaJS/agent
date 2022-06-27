@@ -1,7 +1,10 @@
-# Getting Started with Create React App
+# Тестовое задание
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React, TypeScript
+Для выполнения ajax запросов использовал axios
+Управление состоянием Redux-Toolkit
 
-## Available Scripts
+## Получение контакта организации
 
+Запрос по endpoint возвращает 401 ошибку
 ![Settings Window](https://raw.github.com/DemaJS/agent/master/Screenshot.png)
