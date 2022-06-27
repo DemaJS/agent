@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteImg,
   getOrganization,
+  patchOrganization,
 } from "../../BLL/Actions/organization-actions";
 import { AppDispatch, RootState } from "../../BLL/configurate-store";
 import { deleteImage } from "../../BLL/Reducers/organizations";
+import { EditIcon } from "../../svg/Edit";
 import { UploadButton } from "../../UI-kit/Button-upload";
+import { EditableSpan } from "../../UI-kit/Edit-span";
 import { convertDate } from "../../Utils/convert-date";
 import { Header } from "./header";
 import { ImgComponent } from "./img-component";
@@ -24,6 +27,13 @@ export const Content = () => {
   const deleteImgHandler = (name: string) => {
     dispatch(deleteImg(name));
     dispatch(deleteImage(name));
+  };
+
+  const changeTitleHandler = (title: string) => {
+    const data = {
+      shortName: title,
+    };
+    dispatch(patchOrganization(data));
   };
 
   useEffect(() => {
@@ -45,6 +55,14 @@ export const Content = () => {
     <div className="content">
       <Header />
       <div className="content__container">
+        <div className="main-title">
+          <EditableSpan
+            changeTaskName={changeTitleHandler}
+            description="Название"
+            value={organization.shortName}
+          />
+          <EditIcon />
+        </div>
         <div className="content__info-block">
           <div className="content__title">
             ОБЩАЯ ИНФОРМАЦИЯ
@@ -112,6 +130,7 @@ export const Content = () => {
               organization.photos?.map((el) => {
                 return (
                   <ImgComponent
+                    key={el.name}
                     src={el.thumbpath}
                     name={el.name}
                     callback={deleteImgHandler}

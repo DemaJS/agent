@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { login } from "./BLL/Actions/auth-actions";
+/* import { getContacts } from "./BLL/Actions/contacts-actions"; */
 import { AppDispatch, RootState } from "./BLL/configurate-store";
 import { Footer } from "./Layout/Footer/footer";
 import { Content } from "./Layout/Main/content";
@@ -12,6 +13,7 @@ function App() {
   const isLoading = useSelector((store: RootState) => store.auth.isLoading);
   const loadInfo = async () => {
     await dispatch(login());
+    /* await dispatch(getContacts()); */
   };
 
   useEffect(() => {

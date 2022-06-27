@@ -7,7 +7,23 @@
 }
 
 .content__container {
-    padding: 40px;
+    padding: 24px 40px;
+}
+
+.main-title {
+    margin-bottom: 24px;
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #222222;
+}
+
+.main-title svg {
+    margin-left: 10px;
 }
 
 .content__info-block {
@@ -18,7 +34,7 @@
 
 .content__description {
     display: flex;
-    justify-content: space-between;
+    gap: 70px;
     width: 50%;
     margin-top: 20px;
 }
