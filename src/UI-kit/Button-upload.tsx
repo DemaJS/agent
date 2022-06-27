@@ -40,7 +40,7 @@ export const UploadButton = () => {
         </label>
       </div>
       {selectedImage && (
-        <div>
+        <div style={{ display: "flex", gap: "10px" }}>
           <img
             alt="not fount"
             width={"160px"}
